@@ -38,18 +38,18 @@ public class GameController {
         int numCells = gameBoard.getCellList().size();
         switch (level) {
         case HARD :
-            generator.ints(5, 0, numCells - 1).forEach(x -> gameBoard.getCellList().get(x).setVisible());
+            generator.ints(28, 0, numCells - 1).forEach(x -> gameBoard.getCellList().get(x).setVisible());
         case MEDIUM :
-            generator.ints(8, 0, numCells - 1).forEach(x -> gameBoard.getCellList().get(x).setVisible());
+            generator.ints(32, 0, numCells - 1).forEach(x -> gameBoard.getCellList().get(x).setVisible());
         case EASY :
-            generator.ints(12, 0, numCells - 1).forEach(x -> gameBoard.getCellList().get(x).setVisible());
+            generator.ints(38, 0, numCells - 1).forEach(x -> gameBoard.getCellList().get(x).setVisible());
         }
     }
 
     public void display() {
         for(int i = 1; i < 82; i++) {
             Cell tgtCell = gameBoard.getCellList().get(i-1);
-            System.out.print(tgtCell.isVisible ? tgtCell.getTrueVal() : "*");
+            System.out.print(tgtCell.isVisible ? tgtCell.getTrueVal() : ".");
             if(i % 3 == 0) {
                 System.out.print("\t");
             }
