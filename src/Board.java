@@ -11,20 +11,18 @@ public class Board {
     ArrayList<Cell> cellList;
     ArrayList<ArrayList<Cell>> groups;
     
-    
     public Board() {
-        cellList = new ArrayList<>();
-        groups = new ArrayList<>();
+        generateBoard();
     }
     
     public void generateBoard() {
         createCells();
         createGroups();
         assignValues();
-        displayBoard();
     }
     
     public void createCells() {
+        cellList = new ArrayList<>();
         for(int i = 1; i < 10; i++) {
             for(int j = 1; j < 10; j++) {
                 String cellID = "R" + i + "C" + j;
@@ -38,6 +36,7 @@ public class Board {
     }
     
     public void createGroups() {
+        groups = new ArrayList<>();
         Map<Integer, ArrayList<Cell>> boxes = this.cellList.stream().collect(Collectors.groupingBy(Cell::getBoxNum, Collectors.toCollection(ArrayList::new)));
         Map<Integer, ArrayList<Cell>> rows = this.cellList.stream().collect(Collectors.groupingBy(Cell::getRowNum, Collectors.toCollection(ArrayList::new)));
         Map<Integer, ArrayList<Cell>> cols = this.cellList.stream().collect(Collectors.groupingBy(Cell::getColNum, Collectors.toCollection(ArrayList::new)));
@@ -78,6 +77,7 @@ public class Board {
     
     public void clearBoard() {
         cellList = new ArrayList<>();
+        groups = new ArrayList<>();
         
     }
     
@@ -96,5 +96,14 @@ public class Board {
         }
     }
     
+    public ArrayList<Cell> getCellList() {
+        return cellList;
+    }
 
+    public Cell getCell(String cellName) {
+        return cellList.stream()
+                .filter(c -> c.getName().equals(cellName))
+                .findFirst()
+                .get();
+    }
 }

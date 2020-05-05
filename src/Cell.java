@@ -70,6 +70,12 @@ public class Cell {
         name = rowCol;
     }
     
+    public void setVisible() {
+        if(!isVisible) {
+            isVisible = true;
+        }
+    }
+    
     /**
      * Get this cells name.
      * @return

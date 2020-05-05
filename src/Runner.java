@@ -8,9 +8,8 @@ public class Runner {
     
     public static void main(String[] args) {
         
-        Board board = new Board();
-        
-        board.generateBoard();
-        
+        GameController controller = new GameController();
+        controller.loadNewGame(Level.EASY);
+        controller.display();
     }
 }
