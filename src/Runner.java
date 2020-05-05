@@ -11,5 +11,12 @@ public class Runner {
         GameController controller = new GameController();
         controller.loadNewGame(Level.EASY);
         controller.display();
+        System.out.println(controller.guesses + " : " + controller.badGuesses);
+        System.out.println("");
+        
+        controller.processGuess(4, "R9C6");
+        
+        controller.display();
+        System.out.println(controller.guesses + " : " + controller.badGuesses);
     }
 }

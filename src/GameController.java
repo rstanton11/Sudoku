@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 public class GameController {
     
     private Board gameBoard;
-    private int guesses;
-    private int badGuesses;
+    public int guesses;
+    public int badGuesses;
     private Random generator;
     
     
