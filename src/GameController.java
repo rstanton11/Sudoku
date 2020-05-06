@@ -10,7 +10,6 @@ public class GameController {
     private Random generator;
     
     
-    
     public GameController() {
         gameBoard = new Board();
         generator = new Random();
