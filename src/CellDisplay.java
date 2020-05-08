@@ -14,20 +14,24 @@ import javax.swing.border.Border;
 public class CellDisplay extends JButton{
     
     private String name;
-    private int value;
+    private int row;
+    private int col;
     private boolean inFocus;
+    private UpClassCallBack callback;
     
     // Styling
     private Color BGCOLOR = new Color(201, 219, 222);
     private Color BORDERCOLOR = new Color(214, 227, 230);
     private Color FOCUSBGCOLOR = new Color(100, 117, 121);
+    private Color NEARFOCUSBGCOLOR = new Color(193, 204, 207);
     private Border basicBorder;
     private Dimension prefSize;
     
     
-    public CellDisplay(String name, int value) {
-        this.name = name;
-        this.value = value;
+    public CellDisplay(int row, int col) {
+        this.row = row;
+        this.col = col;
+        this.name = "R" + row + "C" + col;
         this.inFocus = false;
         
         
@@ -43,6 +47,10 @@ public class CellDisplay extends JButton{
         this.addMouseListener(new CellStyler());
     }
     
+    public void addUpCallBack(UpClassCallBack cb) {
+        callback = cb;
+    }
+    
     public void setFocusColors() {
         this.setBackground(FOCUSBGCOLOR);
         this.setForeground(Color.WHITE);
@@ -51,6 +59,10 @@ public class CellDisplay extends JButton{
     public void unsetFocusColors() {
         this.setBackground(BGCOLOR);
         this.setForeground(Color.BLACK);
+    }
+    
+    public void setNearFocusColors() {
+        this.setBackground(NEARFOCUSBGCOLOR);
     }
     
     public void setValue(int x) {
@@ -62,6 +74,22 @@ public class CellDisplay extends JButton{
         inFocus = !inFocus;
     }
     
+    public int getRow() {
+        return row;
+    }
+    
+    public int getCol() {
+        return col;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public boolean isInFocus() {
+         return inFocus;
+    }
+    
     // ======================================================================= \\
     // =================        Mouse Listeners       ======================== \\
     // ======================================================================= \\
@@ -71,7 +99,8 @@ public class CellDisplay extends JButton{
         @Override
         public void mouseClicked(MouseEvent e) {
            toggleFocus();
-           repaint();
+           setFocusColors();
+           revalidate();
         }
 
         @Override
@@ -88,40 +117,18 @@ public class CellDisplay extends JButton{
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            setFocusColors();
-            
+            callback.styleRelatedCells(row, col);
+            setNearFocusColors();
+            revalidate();
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
             if(inFocus == false) {
+                callback.unStyleRelatedCells(row, col);
                 unsetFocusColors();
+                revalidate();
             }
         }
     }
-    
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setPreferredSize(new Dimension(400, 400));
-        Container content = frame.getContentPane();
-        content.setLayout(new GridLayout(9, 9));
-        
-        
-        for(int i = 1; i < 82; i++) {
-            int row = i / 9;
-            int col = i / 9;
-            
-            String name = "R" + row + "C" + col;
-            
-            System.out.println(name);
-            CellDisplay curCell = new CellDisplay(name, i);
-            content.add(curCell);
-        }
-        
-        
-        frame.pack();
-        frame.setVisible(true);
-    }
-
 }
