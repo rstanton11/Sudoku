@@ -31,7 +31,6 @@ public class CellDisplay extends JButton{
         this.inFocus = false;
         
         
-        
         // formatting
         prefSize = new Dimension(40, 40);
         basicBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, BORDERCOLOR);
@@ -68,7 +67,7 @@ public class CellDisplay extends JButton{
     // ======================================================================= \\
     
     private class CellStyler implements MouseListener {
-        int y = 1;
+
         @Override
         public void mouseClicked(MouseEvent e) {
            toggleFocus();
