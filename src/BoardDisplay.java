@@ -71,9 +71,15 @@ public class BoardDisplay extends JPanel {
         
         @Override
         public void setTargetCell(CellDisplay target) {
-            tgtCell.toggleFocus();
+            if(tgtCell != null) {
+              tgtCell.toggleFocus();
+            }
             tgtCell = target;
-            
+        }
+        
+        @Override
+        public void unSetTargetCell(CellDisplay target) {
+            tgtCell = null;
         }
     }
     

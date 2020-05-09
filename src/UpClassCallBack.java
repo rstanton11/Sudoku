@@ -6,5 +6,7 @@ public interface UpClassCallBack {
     public void unStyleRelatedCells(int r, int c);
 
     void setTargetCell(CellDisplay target);
+
+    void unSetTargetCell(CellDisplay target);
     
 }

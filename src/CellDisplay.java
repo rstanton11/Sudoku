@@ -72,6 +72,11 @@ public class CellDisplay extends JButton{
     
     public void toggleFocus() {
         inFocus = !inFocus;
+        if(inFocus) {
+           setFocusColors(); 
+        } else {
+           unsetFocusColors();
+        }
     }
     
     public int getRow() {
@@ -99,8 +104,11 @@ public class CellDisplay extends JButton{
         @Override
         public void mouseClicked(MouseEvent e) {
            toggleFocus();
-           setFocusColors();
-           revalidate();
+           if(isInFocus()) {
+               callback.setTargetCell((CellDisplay) e.getSource()); 
+           } else {
+               callback.unSetTargetCell((CellDisplay) e.getSource());
+           }
         }
 
         @Override
@@ -118,16 +126,17 @@ public class CellDisplay extends JButton{
         @Override
         public void mouseEntered(MouseEvent e) {
             callback.styleRelatedCells(row, col);
-            setNearFocusColors();
-            revalidate();
+            if(!isInFocus()) {
+                setNearFocusColors();
+            }
+            
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
+            callback.unStyleRelatedCells(row, col);
             if(inFocus == false) {
-                callback.unStyleRelatedCells(row, col);
                 unsetFocusColors();
-                revalidate();
             }
         }
     }
